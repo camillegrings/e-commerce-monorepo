@@ -1,0 +1,23 @@
+{
+  "name": "trpc-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.67.1",
+    "@trpc/client": "^11.0.0-rc.824",
+    "@trpc/react-query": "^11.0.0-rc.824",
+    "@trpc/server": "^11.0.0-rc.824",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "drizzle-kit": "^0.30.5",
+    "drizzle-orm": "^0.40.0",
+    "express": "^4.21.2",
+    "pg": "^8.13.3",
+    "postgres": "^3.4.5",
+    "superjson": "^2.2.2",
+    "zod": "^3.24.2"
+  }
+}
