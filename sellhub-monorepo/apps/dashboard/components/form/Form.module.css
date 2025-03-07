@@ -1,0 +1,24 @@
+.button {
+  background: #578c66;
+  padding: 10px 15px;
+  border-radius: 2px;
+  color: white;
+  margin-top: 20px;
+  border: none;
+}
+
+.button:hover {
+  box-shadow: 2px 2px 5px 1px #b2b2b2;
+}
+
+.field {
+  border: none;
+}
+
+.field label {
+  margin-right: 5px;
+}
+
+.field input {
+  width: 100%;
+}

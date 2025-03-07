@@ -28,7 +28,7 @@ export const appRouter = router({
     }),
   
     delete: procedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
-      return await db.delete(products).where({ id: inpid });
+      return await db.delete(products).where({ id: input.id });
     }),
   
     createOrder: procedure.input(z.object({

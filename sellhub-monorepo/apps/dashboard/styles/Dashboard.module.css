@@ -10,14 +10,12 @@
   height: 100vh;
 }
 
-.primaryButton {
-  background: #939393;
-  padding: 10px 15px;
-  border-radius: 2px;
-  color: white;
+.title {
+  text-align: center;
   margin-top: 20px;
 }
 
-.primaryButton:hover {
-  box-shadow: 2px 2px 5px 1px #b2b2b2;
+.content {
+  height: 100%;
+  margin-top: 40px;
 }
