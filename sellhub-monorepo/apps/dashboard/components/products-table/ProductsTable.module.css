@@ -1,0 +1,19 @@
+.table td, .table th {
+  padding: 5px;
+  border: 1px solid #ebe8e8;
+}
+
+.edit {
+  margin-right: 5px;
+}
+
+.edit, .delete {
+  padding: 10px;
+  border: 1px solid rgb(239, 239, 239);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.edit:hover, .delete:hover {
+  border: 1px solid black;
+}

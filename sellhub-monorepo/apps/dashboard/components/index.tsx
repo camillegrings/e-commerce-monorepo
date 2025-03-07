@@ -1,4 +1,5 @@
 import { Loader } from './loader/loader'
-import {CreateProductForm} from './form/form'
+import {ProductForm} from './form/form'
+import {ProductsTable} from './products-table/productsTable'
 
-export { Loader, CreateProductForm }
+export { Loader, ProductForm, ProductsTable }

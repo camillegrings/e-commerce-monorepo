@@ -1,58 +1,82 @@
+import { useState } from 'react'
 import { trpc } from "../utils/trpc";
-import { Loader, CreateProductForm } from '../components'
+import { Loader, ProductForm, ProductsTable } from '../components'
 import styles from '../styles/Dashboard.module.css'
 
+export type Product = {
+  id: number;
+  category: string;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
 export default function Dashboard() {
-  const { data: products, isLoading } = trpc.getAll.useQuery();
-  const createProduct = trpc.create.useMutation();
+  const [isEditing, setIsEditing] = useState(false)
+  const [editingProduct, setEditingProduct] = useState<Product|null>(null)
+  const {data: products, isLoading, refetch} = trpc.getAll.useQuery();
+
+  const createProduct = trpc.create.useMutation({
+    onSuccess: () => {
+      refetch()
+    }
+  });
   const deleteProduct = trpc.delete.useMutation({
     onSuccess: () => {
-      alert("Product deleted successfully!");
+      refetch()
+    },
+  });
+  const updateProduct = trpc.update.useMutation({
+    onSuccess: () => {
+      refetch()
     },
   });
 
-  function addProduct({name, category, quantity, price}) {
-    createProduct.mutate({name, category, quantity: parseInt(quantity), price: parseFloat(price)})
+  function addProduct({name, category, quantity, price}: {name: string, category: string, quantity: string, price: string}) {
+    createProduct.mutate({name, category, quantity: parseInt(quantity), price: parseInt(price)})
+  }
+
+  function deleteProductHandler(id:number) {
+    deleteProduct.mutate({id})
+    setIsEditing(false)
+    setEditingProduct(null)
+  }
+
+  function editProductHandler(product: Product) {
+    setIsEditing(true)
+    setEditingProduct(product)
+  }
+
+  function cancelEdit() {
+    setIsEditing(false)
+    setEditingProduct(null)
+  }
+
+  function formSubmitHandler({name, category, quantity, price}: {name: string, category: string, quantity: string, price: string}) {
+    console.log('1', quantity)
+    if(isEditing && editingProduct) {
+      updateProduct.mutate({id: editingProduct.id, name, category, quantity: parseInt(quantity), price: parseFloat(price)})
+    } else {
+      addProduct({name, category, quantity, price})
+    }
   }
 
   return (
     <div className={styles.main}>
       <h1 className={styles.title}>Product Management</h1>
       <div className={styles.container}>
-        <CreateProductForm onSubmit={addProduct} />
-        {isLoading ? <Loader /> : (
-          <div className={styles.content}>
-            {!products ? <p>No products to show</p> : 
-              (<table className="w-full border-collapse border border-gray-300">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th className="border p-2">Name</th>
-                      <th className="border p-2">Category</th>
-                      <th className="border p-2">Quantity</th>
-                      <th className="border p-2">Price</th>
-                      <th className="border p-2">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      products?.map((product) => (
-                        <tr key={product.id} className="border">
-                          <td className="border p-2">{product.name}</td>
-                          <td className="border p-2">{product.category}</td>
-                          <td className="border p-2">{product.quantity}</td>
-                          <td className="border p-2">${product.price}</td>
-                          <td className="border p-2">
-                            <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
-                            <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => deleteProduct.mutate({ id: product.id })}>Delete</button>
-                          </td>
-                        </tr>
-                      ))
-                    }
-                  </tbody>
-                </table>)
-            }
-          </div>
-        )}
+        <div>
+          <h3>{isEditing ? 'Edit Product' : 'Create new Product'}</h3>
+          <ProductForm onSubmit={formSubmitHandler} onReset={cancelEdit} product={editingProduct} />
+        </div>
+        <div className={styles.productList}>
+          <h3>Products List</h3>
+          {isLoading ? <Loader /> : (
+            <div>
+              <ProductsTable products={products as Array<Product>} onDelete={deleteProductHandler} onEdit={editProductHandler} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,12 @@
 import { z } from 'zod';
+import { eq } from "drizzle-orm";
 import { procedure, router } from '../trpc';
 import { db } from "../db";
 import { products, orders } from "../schema";
 
 export const appRouter = router({
     getAll: procedure.query(async () => {
-      return await db.select().from(products);
+      return await db.select().from(products).orderBy(products.created_at);
     }),
 
     create: procedure.input(z.object({
@@ -24,11 +25,11 @@ export const appRouter = router({
       quantity: z.number(),
       price: z.number(),
     })).mutation(async ({ input }) => {
-      return await db.update(products).set(input).where({ id: input.id }).returning();
+      return await db.update(products).set(input).where(eq(products.id, input.id)).returning();
     }),
   
     delete: procedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
-      return await db.delete(products).where({ id: input.id });
+      return await db.delete(products).where(eq(products.id, input.id));
     }),
   
     createOrder: procedure.input(z.object({
