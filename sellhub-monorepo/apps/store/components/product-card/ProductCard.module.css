@@ -1,0 +1,10 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card h4 {
+    margin: 5px 0;
+}

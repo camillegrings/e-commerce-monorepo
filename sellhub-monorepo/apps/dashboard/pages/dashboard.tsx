@@ -8,7 +8,6 @@ export type Product = {
   category: string;
   name: string;
   price: number;
-  quantity: number;
 };
 
 export default function Dashboard() {
@@ -32,8 +31,8 @@ export default function Dashboard() {
     },
   });
 
-  function addProduct({name, category, quantity, price}: {name: string, category: string, quantity: string, price: string}) {
-    createProduct.mutate({name, category, quantity: parseInt(quantity), price: parseInt(price)})
+  function addProduct({name, category, price}: {name: string, category: string, price: string}) {
+    createProduct.mutate({name, category, quantity: 0, price: parseInt(price)})
   }
 
   function deleteProductHandler(id:number) {
@@ -52,12 +51,11 @@ export default function Dashboard() {
     setEditingProduct(null)
   }
 
-  function formSubmitHandler({name, category, quantity, price}: {name: string, category: string, quantity: string, price: string}) {
-    console.log('1', quantity)
+  function formSubmitHandler({name, category, price}: {name: string, category: string, price: string}) {
     if(isEditing && editingProduct) {
-      updateProduct.mutate({id: editingProduct.id, name, category, quantity: parseInt(quantity), price: parseFloat(price)})
+      updateProduct.mutate({id: editingProduct.id, name, category, quantity: 0, price: parseFloat(price)})
     } else {
-      addProduct({name, category, quantity, price})
+      addProduct({name, category, price})
     }
   }
 

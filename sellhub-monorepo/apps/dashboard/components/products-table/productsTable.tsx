@@ -13,7 +13,6 @@ export function ProductsTable({products, onDelete, onEdit} : {products: Array<Pr
               <tr>
                 <th>Name</th>
                 <th>Category</th>
-                <th>Quantity</th>
                 <th>Price</th>
                 <th>Actions</th>
               </tr>
@@ -24,7 +23,6 @@ export function ProductsTable({products, onDelete, onEdit} : {products: Array<Pr
                   <tr key={product.id}>
                     <td>{product.name}</td>
                     <td>{product.category}</td>
-                    <td>{product.quantity}</td>
                     <td>${product.price}</td>
                     <td>
                       <button className={styles.edit} onClick={() => onEdit(product)}>Edit</button>

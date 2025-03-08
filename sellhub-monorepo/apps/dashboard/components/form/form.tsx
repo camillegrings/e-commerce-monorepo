@@ -5,14 +5,12 @@ import type {Product} from '../../pages/dashboard'
 export function ProductForm({onSubmit, onReset, product} : {onSubmit:Function, onReset: Function, product:Product|null}) {
     const [nameInput, setNameInput] = useState("");
     const [categoryInput, setCategoryInput] = useState("");
-    const [quantityInput, setQuantityInput] = useState("");
     const [priceInput, setPriceInput] = useState("");
 
     useEffect(() => { 
         if(product) {
             setNameInput(product.name)
             setCategoryInput(product.category)
-            setQuantityInput(product.quantity.toString())
             setPriceInput(product.price.toString())
         } else {
             clear()
@@ -22,12 +20,11 @@ export function ProductForm({onSubmit, onReset, product} : {onSubmit:Function, o
     function clear() {
         setNameInput("")
         setCategoryInput("")
-        setQuantityInput("")
         setPriceInput("")
     }
 
     function submit() {
-        onSubmit({name: nameInput, category:categoryInput, quantity:quantityInput, price:priceInput})
+        onSubmit({name: nameInput, category:categoryInput, price:priceInput})
         clear()
     }
 
@@ -55,10 +52,6 @@ export function ProductForm({onSubmit, onReset, product} : {onSubmit:Function, o
         <fieldset className={styles.field}>
             <label htmlFor='category'>Category:</label>
             <input name="category" id='category' type='text' value={categoryInput} onChange={(e) => setCategoryInput(e.target.value)} required />
-        </fieldset>
-        <fieldset className={styles.field}>
-            <label htmlFor='quantity'>Quantity:</label>
-            <input name="quantity" id='quantity' type='text' value={quantityInput} onChange={(e) => setQuantityInput(e.target.value)} required />
         </fieldset>
         <fieldset className={styles.field}>
             <label htmlFor='price'>Price:</label>
