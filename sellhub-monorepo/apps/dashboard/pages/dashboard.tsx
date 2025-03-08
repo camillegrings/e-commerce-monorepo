@@ -28,6 +28,8 @@ export default function Dashboard() {
   const updateProduct = trpc.update.useMutation({
     onSuccess: () => {
       refetch()
+      setIsEditing(false)
+      setEditingProduct(null)
     },
   });
 

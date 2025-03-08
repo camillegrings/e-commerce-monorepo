@@ -4,7 +4,7 @@
 
 .title {
   text-align: center;
-    margin: 20px;
+  margin: 20px;
 }
 
 .container {
@@ -12,13 +12,21 @@
   justify-content: space-evenly;
 }
 
-.content {
+.content,
+.productContent {
   width: 50%;
 }
 
-.content h3 {
+.content h3,
+.productContent h3 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 13px;
+}
+
+.productContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .productsWrapper {
@@ -28,4 +36,18 @@
 
 .orderWrapper {
   padding: 0 20px;
+}
+
+.orderButton {
+  padding: 10px 15px;
+  border-radius: 2px;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+  background: #578c66;
+  color: white;
+}
+
+.orderButton:hover {
+  box-shadow: 2px 2px 5px 1px #b2b2b2;
 }

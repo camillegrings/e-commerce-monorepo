@@ -66,7 +66,7 @@ export default function Store() {
     <main className={styles.main}>
       <h1 className={styles.title}>Store ABC</h1>
       <div className={styles.container}>
-        <div className={styles.content}>
+        <div className={styles.productContent}>
           <h3>Products</h3>
           {isLoading ? <Loader /> : (
             <div className={styles.productsWrapper}>
@@ -78,7 +78,7 @@ export default function Store() {
           <h3>Order Summary</h3>
           <div className={styles.orderWrapper}>
             {cart?.map((product) => <OrderItem key={product.id} product={product} onIncrease={onIncreaseHandler} onDecrease={onDecreaseHandler} />)}
-            {cart.length > 0 && <button onClick={()=> createOrder.mutate({list_of_products: cart})}>Create Order</button>}
+            {cart.length > 0 && <button className={styles.orderButton} onClick={()=> createOrder.mutate({list_of_products: cart})}>Create Order</button>}
           </div>
         </div>
       </div>

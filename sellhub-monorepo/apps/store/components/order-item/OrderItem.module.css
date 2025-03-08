@@ -9,7 +9,14 @@
 
 .decrease,
 .increase {
-    padding: 2px;
+    padding: 2px 5px;
+    border: 1px solid rgb(239, 239, 239);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.decrease:hover, .increase:hover {
+  border: 1px solid black;
 }
 
 .quantityWrapper span {
