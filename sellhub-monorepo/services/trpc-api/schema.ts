@@ -8,7 +8,7 @@ export const products = pgTable("products", {
   price: integer("price").notNull(),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
-  // deleted_at: timestamp("deleted_at").nullable(),
+  deleted_at: timestamp("deleted_at").defaultNow(),
 });
 
 export const orders = pgTable("orders", {
@@ -16,5 +16,5 @@ export const orders = pgTable("orders", {
   list_of_products: json("list_of_products").notNull(),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
-  // deleted_at: timestamp("deleted_at").nullable(),
+  deleted_at: timestamp("deleted_at").defaultNow(),
 });

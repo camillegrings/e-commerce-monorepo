@@ -1,84 +1,113 @@
-# Turborepo starter
+# Sellhub E-Commerce Monorepo 🛒  
 
-This Turborepo starter is maintained by the Turborepo core team.
+This is a **monorepo** for an **E-Commerce platform** built with **Next.js, tRPC, Turborepo, DrizzleORM, PostgreSQL, and Docker**.  
 
-## Using this example
+## 🚀 Features  
+✅ **Store Dashboard** - Manage products and orders (Next.js)  
+✅ **Customer Store** - View products, add to cart, and place orders (Next.js)  
+✅ **tRPC API** - Handles products and orders (tRPC + DrizzleORM)  
+✅ **PostgreSQL Database** - Persistent storage for products and orders  
+✅ **Monorepo Architecture** - Uses **Turborepo** for managing multiple applications  
 
+---
+
+## 🛠 **1. Prerequisites**  
+
+Make sure you have the following installed:  
+- **Node.js** (v18 or later) - [Download here](https://nodejs.org/)  
+- **Docker** - [Download here](https://www.docker.com/)  
+- **Git** - [Download here](https://git-scm.com/)  
+
+---
+
+## 📂 **2. Clone the Repository**  
+Run this command to clone the repository to your local machine:  
+
+```bash
+git clone https://github.com/camillegrings/e-commerce-monorepo.git
+cd e-commerce-monorepo/sellhub-monorepo
+```
+
+---
+
+## 📦 **3. Install Dependencies**
+Run the following command to install all dependencies for all applications:
+
+```bash
+npm install
+```
+This will install dependencies for both the Store, Dashboard and trpc api using Turborepo.
+
+---
+
+## 🐘 **4. Set Up PostgreSQL with Docker**
+We use Docker to set up the PostgreSQL database.
+
+Step 1: Start the Database
 Run the following command:
 
-```sh
-npx create-turbo@latest
+```bash
+docker-compose up -d
 ```
 
-## What's inside?
+This will:
+✅ Start a PostgreSQL database in a Docker container
+✅ Expose it on port 5432
 
-This Turborepo includes the following packages/apps:
+---
 
-### Apps and Packages
+## ⚙️ **5. Configure Environment Variables**
+Each application requires a .env file.
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+Step 1: Create a .env file inside apps/dashboard/
+```bash
+DATABASE_URL=postgres://sellhub_user:sellhub_pass@localhost:5432/sellhub_db
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
+Step 2: Create a .env file inside apps/store/
+```bash
+DATABASE_URL=postgres://sellhub_user:sellhub_pass@localhost:5432/sellhub_db
 ```
 
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
+Step 3: Create a .env file inside services/trpc-api/
+```bash
+DATABASE_URL=postgres://sellhub_user:sellhub_pass@localhost:5432/sellhub_db
 ```
-cd my-turborepo
-npx turbo login
+Important: If you change the database credentials, update DATABASE_URL accordingly.
+
+---
+
+## 🛢 **6. Run Database Migrations**
+Once the database is running, apply DrizzleORM migrations:
+
+```bash
+cd services/trpc-api
+npx drizzle-kit generate
+npx drizzle-kit push
+```
+This will create the necessary tables in PostgreSQL.
+
+---
+
+## 🎛 **7. Run the Applications**
+Run the applications from the base folder
+```bash
+cd ../../
+npm run dev
+```
+Opens http://localhost:3000/ and http://localhost:3001/
+
+---
+
+## 🛠 **8. Troubleshooting**
+❌ Error: "PostgresError: password authentication failed"
+👉 Ensure the database user and password match the DATABASE_URL in .env.local.
+👉 Access PostgreSQL inside Docker to manually update the password:
+
+```bash
+docker exec -it sellhub_db psql -U postgres
+ALTER USER sellhub_user WITH PASSWORD 'sellhub_pass';
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## 👥 **9. Contributors**
+Camille Grings Silva

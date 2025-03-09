@@ -1,0 +1,9 @@
+{
+    "schema": "./schema.ts",
+    "out": "./drizzle/migrations",
+    "dialect": "postgresql",
+    "dbCredentials": {
+      "url": "postgres://sellhub_user:sellhub_pass@localhost:5432/sellhub_db"
+    }
+  }
+  
